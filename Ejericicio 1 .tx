@@ -1,0 +1,47 @@
+﻿using System;
+
+public class Nodo {
+    public int Dato { get; set; }
+    public Nodo Siguiente { get; set; }
+    public Nodo(int dato) { Dato = dato; Siguiente = null; }
+}
+
+public class ListaEnlazada {
+    private Nodo cabeza;
+
+    public void Insertar(int valor) {
+        Nodo nuevo = new Nodo(valor);
+        if (cabeza == null) cabeza = nuevo;
+        else {
+            Nodo actual = cabeza;
+            while (actual.Siguiente != null) actual = actual.Siguiente;
+            actual.Siguiente = nuevo;
+        }
+    }
+
+    // EL MÉTODO QUE TE PIDIERON
+    public int BuscarDato(int valorABuscar) {
+        Nodo actual = cabeza;
+        int contador = 0;
+        while (actual != null) {
+            if (actual.Dato == valorABuscar) contador++;
+            actual = actual.Siguiente;
+        }
+
+        if (contador == 0) Console.WriteLine("El dato no fue encontrado.");
+        else Console.WriteLine($"El dato {valorABuscar} se encuentra {contador} veces.");
+        
+        return contador;
+    }
+}
+
+class Program {
+    static void Main() {
+        ListaEnlazada lista = new ListaEnlazada();
+        lista.Insertar(10); lista.Insertar(20); lista.Insertar(10);
+        
+        Console.Write("Ingrese el valor a buscar: ");
+        int busqueda = int.Parse(Console.ReadLine());
+        lista.BuscarDato(busqueda);
+    }
+}
